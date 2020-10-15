@@ -128,6 +128,10 @@ object Misc: EntryStartup {
                 val value = sp.getBoolean(key, false)
                 SystemProperties.set("persist.sys.phh.disable_buttons_light", if (value) "true" else "false")
             }
+            MiscSettings.enableSuperUser -> {
+                val value = sp.getBoolean(key, false)
+                SystemProperties.set("persist.sys.phh.root", if (value) "true" else "false")
+            } 
             MiscSettings.forceNavbarOff -> {
                 val value = sp.getBoolean(key, false)
                 SystemProperties.set("persist.sys.phh.mainkeys", if (value) "1" else "0")

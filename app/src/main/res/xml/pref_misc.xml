@@ -7,6 +7,13 @@
 		    android:action="android.intent.action.VIEW"
 		    android:data="https://github.com/sponsors/phhusson/" />
 	</Preference>
+        <PreferenceCategory android:title="Phh SU">
+                            <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_misc_super_user"
+            android:title="Enable SuperUser (requires reboot)"
+	    android:summary="Enables full root ability, please note that this will cause safteynet to fail while the feature is enabled, may not work on all devices, reboot twice if su doesn't work the first time" />
+        </PreferenceCategory>
 	<PreferenceCategory android:title="Mobile network">
 		<ListPreference
 		    android:defaultValue="default"

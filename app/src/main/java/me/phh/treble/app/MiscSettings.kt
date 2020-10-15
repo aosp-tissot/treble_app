@@ -20,6 +20,7 @@ object MiscSettings : Settings {
     val roundedCornersOverlay = "key_misc_rounded_corners_overlay"
     val linearBrightness = "key_misc_linear_brightness"
     val disableButtonsBacklight = "key_misc_disable_buttons_backlight"
+    val enableSuperUser = "key_misc_super_user"
     val forceNavbarOff = "key_misc_force_navbar_off"
     val bluetooth = "key_misc_bluetooth"
     val securize = "key_misc_securize"
