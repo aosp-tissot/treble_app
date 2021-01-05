@@ -71,6 +71,7 @@ object Misc: EntryStartup {
             MiscSettings.multiCameras -> {
                 val value = sp.getBoolean(key, false)
 
+                safeSetprop("persist.sys.phh.include_all_cameras", if(value) "true" else "false")
                 if (value ||
                         SystemProperties.get("vendor.camera.aux.packagelist", null) == null ||
                         SystemProperties.get("camera.aux.packagelist", null) == null) {
@@ -78,6 +79,7 @@ object Misc: EntryStartup {
                     safeSetprop("camera.aux.packagelist", if (value) "nothing" else null)
                     safeSetprop("ctl.restart", "vendor.camera-provider-2-4")
                     safeSetprop("ctl.restart", "camera-provider-2-4")
+                    safeSetprop("ctl.restart", "cameraserver")
                 }
             }
             MiscSettings.forceCamera2APIHAL3 -> {
@@ -112,6 +114,7 @@ object Misc: EntryStartup {
                 val value = sp.getString(key, "-1").toInt()
                 if (value >= 0) {
                     Settings.Secure.putInt(c.contentResolver, "sysui_rounded_content_padding", value)
+                    SystemProperties.set("persist.sys.phh.rounded_corners_padding", value.toString())
                 }
             }
             MiscSettings.roundedCornersOverlay -> {
@@ -183,6 +186,41 @@ object Misc: EntryStartup {
                 val value = sp.getBoolean(key, false)
                 enableHwcOverlay(!value)
             }
+            MiscSettings.storageFUSE -> {
+                val value = sp.getBoolean(key, false)
+                Log.d("PHH", "Setting storageFUSE to $value")
+                SystemProperties.set("persist.sys.fflag.override.settings_fuse", if (!value) "true" else "false")
+            }
+            MiscSettings.backlightScale -> {
+                val value = sp.getBoolean(key, false)
+                SystemProperties.set("persist.sys.phh.backlight.scale", if (value) "1" else "0")
+            }
+            MiscSettings.headsetDevinput -> {
+                val value = sp.getBoolean(key, false)
+                SystemProperties.set("persist.sys.overlay.devinputjack", if (value) "true" else "false")
+            }
+            MiscSettings.accentColor -> {
+                val value = sp.getString(key, "")
+                val allOverlays = OverlayPicker.getOverlays("android")
+                        .filter { it.packageName.startsWith("com.android.theme.color") }
+                allOverlays
+                        .filter { it.packageName != value }
+                        .forEach { OverlayPicker.setOverlayEnabled(it.packageName, false) }
+                if (!value.isNullOrEmpty()) {
+                    OverlayPicker.setOverlayEnabled(value, true)
+                }
+            }
+            MiscSettings.iconShape -> {
+                val value = sp.getString(key, "")
+                val allOverlays = OverlayPicker.getOverlays("android")
+                        .filter { it.packageName.startsWith("com.android.theme.icon") }
+                allOverlays
+                        .filter { it.packageName != value }
+                        .forEach { OverlayPicker.setOverlayEnabled(it.packageName, false) }
+                if (!value.isNullOrEmpty()) {
+                    OverlayPicker.setOverlayEnabled(value, true)
+                }
+            }
         }
     }
 
@@ -207,5 +245,8 @@ object Misc: EntryStartup {
         spListener.onSharedPreferenceChanged(sp, MiscSettings.bluetooth)
         spListener.onSharedPreferenceChanged(sp, MiscSettings.displayFps)
         spListener.onSharedPreferenceChanged(sp, MiscSettings.noHwcomposer)
+        spListener.onSharedPreferenceChanged(sp, MiscSettings.storageFUSE)
+        spListener.onSharedPreferenceChanged(sp, MiscSettings.accentColor)
+        spListener.onSharedPreferenceChanged(sp, MiscSettings.iconShape)
     }
 }

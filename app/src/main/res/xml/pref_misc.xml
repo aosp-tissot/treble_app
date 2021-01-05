@@ -28,6 +28,10 @@
             android:key="key_huawei_headset_fix"
             android:title="Force headset switch (Huawei default)" />
 		<CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_misc_headset_devinput"
+            android:title="Use alternate way to detect headsets" />
+		<CheckBoxPreference
                     android:defaultValue="false"
                     android:key="key_misc_disable_audio_effects"
                     android:title="Disable audio effects" />
@@ -60,6 +64,18 @@
             android:key="key_misc_no_hwcomposer"
             android:title="Disable HW overlays"
             android:summary="Eats more CPU and battery" />
+		<ListPreference
+			android:defaultValue=""
+			android:entries="@array/pref_misc_accent_color"
+			android:entryValues="@array/pref_misc_accent_color_values"
+			android:key="key_misc_accent_color"
+			android:title="Accent color" />
+		<ListPreference
+			android:defaultValue=""
+			android:entries="@array/pref_misc_icon_shape"
+			android:entryValues="@array/pref_misc_icon_shape_values"
+			android:key="key_misc_icon_shape"
+			android:title="Icon shape" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="Backlight">
 		<CheckBoxPreference
@@ -70,12 +86,16 @@
             android:defaultValue="false"
             android:key="key_misc_disable_buttons_backlight"
             android:title="Disable backlight of hardware buttons if present (requires reboot)" />
+		<CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_misc_backlight_scale"
+            android:title="Force alternative backlight scale" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="Camera">
 		<CheckBoxPreference
 						android:defaultValue="false"
 						android:key="key_misc_multi_camera"
-						android:title="Expose Aux cameras (Qualcomm)" />
+						android:title="Expose Aux cameras" />
 		<CheckBoxPreference
 				android:defaultValue="false"
 				android:key="key_misc_force_camera2api_hal3"
@@ -109,13 +129,18 @@
             android:defaultValue="false"
             android:key="key_misc_force_navbar_off"
             android:title="Force navigation bar disabled" />
-		<Preference android:title="Securize"
-                android:key="key_misc_securize" />
-	<Preference android:title="@string/remove_telephony_subsystem"
-		android:key="key_misc_removetelephony" />
 		<CheckBoxPreference
-                android:defaultValue="false"
-                android:key="key_misc_remotectl"
-                android:title="Allow takeover of the device by phh for debugging" />
+            android:defaultValue="false"
+            android:key="key_misc_storage_fuse"
+            android:title="Disable FUSE storage layer"
+            android:summary="This can (de/in)crease storage speed\nRestart required" />
+		<Preference android:title="Securize"
+            android:key="key_misc_securize" />
+		<Preference android:title="@string/remove_telephony_subsystem"
+            android:key="key_misc_removetelephony" />
+		<CheckBoxPreference
+            android:defaultValue="false"
+            android:key="key_misc_remotectl"
+            android:title="Allow takeover of the device by phh for debugging" />
 	</PreferenceCategory>
 </PreferenceScreen>

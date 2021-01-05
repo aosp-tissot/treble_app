@@ -95,7 +95,7 @@ class ImsSettingsFragment : SettingsFragment() {
         val (url, message) =
                 when {
                     Ims.gotMtkPie -> Pair("https://treble.phh.me/stable/ims-mtk-p.apk", "Mediatek Pie vendor")
-                    Ims.gotMtkQuack -> Pair("https://treble.phh.me/stable/ims-mtk-q.apk", "Mediatek Pie vendor")
+                    Ims.gotMtkQuack -> Pair("https://treble.phh.me/stable/ims-mtk-q.apk", "Mediatek Q vendor")
                     Ims.gotQualcomm -> Pair("https://treble.phh.me/stable/ims-q.64.apk", "Qualcomm vendor")
                     else -> Pair("", "NOT SUPPORTED")
                 }
@@ -132,6 +132,7 @@ class ImsSettingsFragment : SettingsFragment() {
                     val sessionId = pi.createSession(PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL))
                     val session = pi.openSession(sessionId)
 
+                    Misc.safeSetprop("persist.vendor.vilte_support", "0")
 
                     session.openWrite("hello", 0, -1).use { output ->
                         FileInputStream(path).use { input ->
