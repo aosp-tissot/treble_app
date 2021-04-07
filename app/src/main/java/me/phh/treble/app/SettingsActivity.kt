@@ -65,6 +65,10 @@ class SettingsActivity : PreferenceActivity() {
             target.removeIf { it.fragment == MyDeviceSettingsFragment::class.java.name }
         if (!NubiaSettings.enabled())
             target.removeIf { it.fragment == NubiaSettingsFragment::class.java.name }
+        if (!ImsSettings.enabled())
+            target.removeIf { it.fragment == ImsSettingsFragment::class.java.name }
+        if (!CustomSettings.enabled())
+            target.removeIf { it.fragment == CustomSettingsFragment::class.java.name }   
     }
 
     /**
@@ -86,6 +90,7 @@ class SettingsActivity : PreferenceActivity() {
                 || MyDeviceSettingsFragment::class.java.name == fragmentName
                 || NubiaSettingsFragment::class.java.name == fragmentName
                 || ImsSettingsFragment::class.java.name == fragmentName
+                || CustomSettingsFragment::class.java.name == fragmentName
     }
 
     companion object {
